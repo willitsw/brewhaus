@@ -1,6 +1,5 @@
 import React from "react";
-import { Spin } from "antd";
 
-const Loader = () => <Spin />;
+const Loader = () => null;
 
 export default Loader;
