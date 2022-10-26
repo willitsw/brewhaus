@@ -4,18 +4,7 @@ import Image from "next/image";
 import logo from "../images/logo.png";
 import Client, { Product } from "shopify-buy";
 import { useEffect, useState } from "react";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
-import blantons from "../images/bourbon-blantons.jpeg";
-import eagle from "../images/bourbon-eagle.jpeg";
-import knob from "../images/bourbon-knob.jpeg";
-import oldVanWinkle from "../images/bourbon-old-van-winkle.jpeg";
-import stag from "../images/bourbon-stag.jpeg";
-import taylor from "../images/bourbon-taylor.jpeg";
-import turkey from "../images/bourbon-turkey.jpeg";
-import vanWinkle from "../images/bourbon-van-winkle.jpeg";
-import weller from "../images/bourbon-weller.jpeg";
-import woodford from "../images/bourbon-woodford.jpeg";
+import { Carousel } from "../components/carousel";
 
 const client = Client.buildClient({
   domain: "brewhaus-bourbon-raffle-test.myshopify.com",
@@ -45,28 +34,7 @@ const Home: NextPage = () => {
       </header>
 
       <main>
-        <Carousel
-          autoPlay
-          showStatus={false}
-          showArrows
-          infiniteLoop
-          showThumbs={false}
-        >
-          {[
-            blantons,
-            eagle,
-            knob,
-            oldVanWinkle,
-            stag,
-            taylor,
-            turkey,
-            vanWinkle,
-            weller,
-            woodford,
-          ].map((bourbon, key) => (
-            <Image key={key} src={bourbon} alt="Bourbon pics for auction" />
-          ))}
-        </Carousel>
+        <Carousel />
       </main>
 
       <footer
