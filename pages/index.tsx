@@ -63,7 +63,7 @@ const Home: NextPage = () => {
         </Head>
         <Header
           style={{
-            minHeight: isTabletOrMobile ? 100 : 140,
+            minHeight: isTabletOrMobile ? 110 : 150,
             padding: 0,
           }}
         >
@@ -76,6 +76,9 @@ const Home: NextPage = () => {
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "flex-end",
+              paddingTop: 10,
+              paddingLeft: isTabletOrMobile ? 10 : 0,
+              paddingRight: isTabletOrMobile ? 10 : 0,
             }}
           >
             <Image
@@ -86,7 +89,12 @@ const Home: NextPage = () => {
             />
             <Typography.Title
               level={isTabletOrMobile ? 4 : 2}
-              style={{ color: "white", marginBottom: 0, marginLeft: 10 }}
+              style={{
+                color: "white",
+                marginBottom: 0,
+                marginLeft: 10,
+                textAlign: "right",
+              }}
             >
               Brewhaus Dog Bones Bourbon Raffle 2022!
             </Typography.Title>
