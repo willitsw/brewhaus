@@ -5,7 +5,8 @@ import logo from "../images/logo.png";
 import Client, { Product } from "shopify-buy";
 import { useEffect, useState } from "react";
 import { Carousel } from "../components/carousel";
-import { InputNumber, Button } from "antd";
+import { InputNumber, Button, Divider, Layout } from "antd";
+import { Content, Footer, Header } from "antd/lib/layout/layout";
 
 const client = Client.buildClient({
   domain: "brewhaus-bourbon-raffle-test.myshopify.com",
@@ -48,80 +49,101 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div style={{ marginRight: "auto", marginLeft: "auto", maxWidth: 960 }}>
-      <Head>
-        <title>Brewhaus Bourbon Raffle</title>
-        <meta name="description" content="Fundraiser for Brewhaus Dog Bones" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <header
-        style={{
-          marginTop: 20,
-          marginBottom: 20,
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Image src={logo} alt="Brewhaus Dog Bones Logo" />
-        <h1 style={{ paddingTop: 50 }}>
-          Brewhaus Dog Bones Bourbon Raffle 2022!
-        </h1>
-      </header>
-
-      <main>
-        <Carousel />
-        <div
+    <Layout>
+      <div>
+        <Head>
+          <title>Brewhaus Bourbon Raffle</title>
+          <meta
+            name="description"
+            content="Fundraiser for Brewhaus Dog Bones"
+          />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Header
           style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-around",
-            marginTop: 20,
+            height: 140,
           }}
         >
-          {raffleTicket && (
-            <div>
-              <div>
-                <b>Price per ticket:</b> {getPrice(raffleTicket)}
-              </div>
-              <div style={{ flexDirection: "row" }}>
-                <b>Quantity:</b>
-                <InputNumber
-                  style={{ marginLeft: 10 }}
-                  min={0}
-                  onChange={(count) => {
-                    setPurchaseCount(count as number);
-                  }}
-                  value={purchaseCount}
-                />
-              </div>
-            </div>
-          )}
-          <Button
-            type="primary"
-            size="large"
-            onClick={handleBuyNow}
-            disabled={purchaseCount < 1}
+          <div
+            style={{
+              marginRight: "auto",
+              marginLeft: "auto",
+              maxWidth: 960,
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+            }}
           >
-            Buy Now
-          </Button>
-        </div>
-      </main>
+            <Image
+              src={logo}
+              alt="Brewhaus Dog Bones Logo"
+              height={120}
+              width={150}
+            />
+            <h1 style={{ color: "white" }}>
+              Brewhaus Dog Bones Bourbon Raffle 2022!
+            </h1>
+          </div>
+        </Header>
 
-      <footer
-        style={{
-          position: "fixed",
-          left: 0,
-          bottom: 0,
-          width: "100%",
-          textAlign: "center",
-          marginBottom: 40,
-        }}
-      >
-        Brewhaus Dog Bones 2022
-      </footer>
-    </div>
+        <Content>
+          <div
+            style={{
+              marginRight: "auto",
+              marginLeft: "auto",
+              maxWidth: 960,
+            }}
+          >
+            <Carousel />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-around",
+                marginTop: 20,
+              }}
+            >
+              {raffleTicket && (
+                <div>
+                  <div>
+                    <b>Price per ticket:</b> {getPrice(raffleTicket)}
+                  </div>
+                  <div style={{ flexDirection: "row" }}>
+                    <b>Quantity:</b>
+                    <InputNumber
+                      style={{ marginLeft: 10 }}
+                      min={0}
+                      onChange={(count) => {
+                        setPurchaseCount(count as number);
+                      }}
+                      value={purchaseCount}
+                    />
+                  </div>
+                </div>
+              )}
+              <Button
+                type="primary"
+                size="large"
+                onClick={handleBuyNow}
+                disabled={purchaseCount < 1}
+              >
+                Buy Now
+              </Button>
+            </div>
+          </div>
+        </Content>
+
+        <Footer
+          style={{
+            textAlign: "center",
+          }}
+        >
+          <Divider />
+          Brewhaus Dog Bones 2022
+        </Footer>
+      </div>
+    </Layout>
   );
 };
 
