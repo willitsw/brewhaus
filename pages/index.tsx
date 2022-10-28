@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Carousel } from "../components/carousel";
 import { InputNumber, Button, Divider, Layout, Typography } from "antd";
 import { Content, Footer, Header } from "antd/lib/layout/layout";
+import { useMediaQuery } from "react-responsive";
 
 const client = Client.buildClient({
   domain: "brewhaus-bourbon-raffle-test.myshopify.com",
@@ -25,6 +26,7 @@ const Home: NextPage = () => {
   const [raffleTicket, setRaffleTicket] = useState<Product>();
   const [purchaseCount, setPurchaseCount] = useState<number>(0);
   const [checkoutId, setCheckoutId] = useState<string>();
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
 
   useEffect(() => {
     const getProducts = async () => {
@@ -61,7 +63,8 @@ const Home: NextPage = () => {
         </Head>
         <Header
           style={{
-            height: 140,
+            minHeight: isTabletOrMobile ? 100 : 140,
+            padding: 0,
           }}
         >
           <div
@@ -81,7 +84,10 @@ const Home: NextPage = () => {
               height={120}
               width={150}
             />
-            <Typography.Title level={2} style={{ color: "white" }}>
+            <Typography.Title
+              level={isTabletOrMobile ? 4 : 2}
+              style={{ color: "white", marginBottom: 0, marginLeft: 10 }}
+            >
               Brewhaus Dog Bones Bourbon Raffle 2022!
             </Typography.Title>
           </div>

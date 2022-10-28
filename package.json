@@ -20,6 +20,7 @@
     "next-plugin-antd-less": "^1.8.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-responsive": "^9.0.0",
     "shopify-buy": "^2.17.0"
   },
   "devDependencies": {
