@@ -146,7 +146,7 @@ const Home: NextPage = () => {
               </Button>
             </div>
             <Divider />
-            <Typography.Paragraph>
+            <Typography.Paragraph style={{ paddingLeft: 10, paddingRight: 10 }}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -156,7 +156,7 @@ const Home: NextPage = () => {
               sunt in culpa qui officia deserunt mollit anim id est laborum.
             </Typography.Paragraph>
             <Divider />
-            <Typography.Paragraph>
+            <Typography.Paragraph style={{ paddingLeft: 10, paddingRight: 10 }}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
