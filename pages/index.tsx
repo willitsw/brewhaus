@@ -115,12 +115,13 @@ const Home: NextPage = () => {
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "space-around",
+                alignItems: "center",
                 marginTop: 20,
               }}
             >
               {raffleTicket && (
                 <div>
-                  <div>
+                  <div style={{ marginBottom: 10 }}>
                     <b>Price per ticket:</b> {getPrice(raffleTicket)}
                   </div>
                   <div style={{ flexDirection: "row" }}>
