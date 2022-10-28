@@ -5,7 +5,7 @@ import logo from "../images/logo.png";
 import Client, { Product } from "shopify-buy";
 import { useEffect, useState } from "react";
 import { Carousel } from "../components/carousel";
-import { InputNumber, Button, Divider, Layout } from "antd";
+import { InputNumber, Button, Divider, Layout, Typography } from "antd";
 import { Content, Footer, Header } from "antd/lib/layout/layout";
 
 const client = Client.buildClient({
@@ -81,9 +81,9 @@ const Home: NextPage = () => {
               height={120}
               width={150}
             />
-            <h1 style={{ color: "white" }}>
+            <Typography.Title level={2} style={{ color: "white" }}>
               Brewhaus Dog Bones Bourbon Raffle 2022!
-            </h1>
+            </Typography.Title>
           </div>
         </Header>
 
