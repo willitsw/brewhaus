@@ -66,7 +66,7 @@ const Home: NextPage = () => {
       >
         <Image src={logo} alt="Brewhaus Dog Bones Logo" />
         <h1 style={{ paddingTop: 50 }}>
-          Brewhaus Dog Bones Bourbon Raffle 2022
+          Brewhaus Dog Bones Bourbon Raffle 2022!
         </h1>
       </header>
 

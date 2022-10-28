@@ -17,6 +17,7 @@
     "embla-carousel-autoplay": "^7.0.3",
     "embla-carousel-react": "^7.0.3",
     "next": "12.3.1",
+    "next-plugin-antd-less": "^1.8.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "shopify-buy": "^2.17.0"
@@ -26,6 +27,7 @@
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "@types/shopify-buy": "^2.10.10",
+    "babel-plugin-import": "^1.13.5",
     "eslint": "8.26.0",
     "eslint-config-next": "12.3.1",
     "typescript": "4.8.4"
