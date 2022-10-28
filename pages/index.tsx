@@ -3,11 +3,12 @@ import Head from "next/head";
 import Image from "next/image";
 import logo from "../images/logo.png";
 import Client, { Product } from "shopify-buy";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Carousel } from "../components/carousel";
-import { InputNumber, Button, Divider, Layout, Typography } from "antd";
+import { InputNumber, Button, Divider, Layout, Typography, Modal } from "antd";
 import { Content, Footer, Header } from "antd/lib/layout/layout";
 import { useMediaQuery } from "react-responsive";
+import Loading from "../components/loader";
 
 const client = Client.buildClient({
   domain: "brewhaus-bourbon-raffle-test.myshopify.com",
@@ -27,6 +28,8 @@ const Home: NextPage = () => {
   const [purchaseCount, setPurchaseCount] = useState<number>(0);
   const [checkoutId, setCheckoutId] = useState<string>();
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+  const [is21, setIs21] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -34,6 +37,7 @@ const Home: NextPage = () => {
       setRaffleTicket(newProducts[0]);
       const newCheckout = await client.checkout.create();
       setCheckoutId(newCheckout.id.toString());
+      setIsLoading(false);
     };
     getProducts();
   }, []);
@@ -51,7 +55,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <Layout>
+    <Layout style={{ minHeight: "100vh" }}>
       <div>
         <Head>
           <title>Brewhaus Bourbon Raffle</title>
@@ -101,72 +105,89 @@ const Home: NextPage = () => {
           </div>
         </Header>
 
-        <Content>
-          <div
-            style={{
-              marginRight: "auto",
-              marginLeft: "auto",
-              maxWidth: 960,
-            }}
-          >
-            <Carousel />
+        <Content style={{ minHeight: "90vh" }}>
+          <Loading isLoading={isLoading}>
             <div
               style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-around",
-                alignItems: "center",
-                marginTop: 20,
+                marginRight: "auto",
+                marginLeft: "auto",
+                maxWidth: 960,
               }}
             >
-              {raffleTicket && (
-                <div>
-                  <div style={{ marginBottom: 10 }}>
-                    <b>Price per ticket:</b> {getPrice(raffleTicket)}
-                  </div>
-                  <div style={{ flexDirection: "row" }}>
-                    <b>Quantity:</b>
-                    <InputNumber
-                      style={{ marginLeft: 10 }}
-                      min={0}
-                      onChange={(count) => {
-                        setPurchaseCount(count as number);
-                      }}
-                      value={purchaseCount}
-                    />
-                  </div>
-                </div>
-              )}
-              <Button
-                type="primary"
-                size="large"
-                onClick={handleBuyNow}
-                disabled={purchaseCount < 1}
+              <Carousel />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                  marginTop: 20,
+                }}
               >
-                Buy Now
-              </Button>
+                {raffleTicket && (
+                  <div>
+                    <div style={{ marginBottom: 10 }}>
+                      <b>Price per ticket:</b> {getPrice(raffleTicket)}
+                    </div>
+                    <div style={{ flexDirection: "row" }}>
+                      <b>Quantity:</b>
+                      <InputNumber
+                        style={{ marginLeft: 10 }}
+                        min={0}
+                        onChange={(count) => {
+                          setPurchaseCount(count as number);
+                        }}
+                        value={purchaseCount}
+                      />
+                    </div>
+                  </div>
+                )}
+                <Button
+                  type="primary"
+                  size="large"
+                  onClick={handleBuyNow}
+                  disabled={purchaseCount < 1}
+                >
+                  Buy Now
+                </Button>
+              </div>
+              <Divider />
+              <Typography.Paragraph
+                style={{ paddingLeft: 10, paddingRight: 10 }}
+              >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </Typography.Paragraph>
+              <Divider />
+              <Typography.Paragraph
+                style={{ paddingLeft: 10, paddingRight: 10 }}
+              >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </Typography.Paragraph>
             </div>
-            <Divider />
-            <Typography.Paragraph style={{ paddingLeft: 10, paddingRight: 10 }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </Typography.Paragraph>
-            <Divider />
-            <Typography.Paragraph style={{ paddingLeft: 10, paddingRight: 10 }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </Typography.Paragraph>
-          </div>
+            <Modal
+              title="Are you 21 years old?"
+              open={!is21}
+              onOk={() => setIs21(true)}
+              onCancel={() => (window.location.href = "https://www.google.com")}
+              okText="Yes, Proceed!"
+              cancelText="No"
+              closable={false}
+            >
+              <p>You must be 21 years old to enter this site.</p>
+            </Modal>
+          </Loading>
         </Content>
 
         <Footer

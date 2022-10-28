@@ -1,5 +1,28 @@
+import { Spin } from "antd";
 import React from "react";
 
-const Loader = () => null;
+interface LoadingProps {
+  isLoading: boolean;
+  children: React.ReactNode;
+}
 
-export default Loader;
+const Loading = ({ isLoading, children }: LoadingProps) => {
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          margin: "auto",
+          width: 30,
+          display: "flex",
+          minHeight: 200,
+          alignItems: "center",
+        }}
+      >
+        <Spin size="large" />
+      </div>
+    );
+  }
+  return <>{children}</>;
+};
+
+export default Loading;
