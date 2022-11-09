@@ -11,8 +11,8 @@ import { useMediaQuery } from "react-responsive";
 import Loading from "../components/loader";
 
 const client = Client.buildClient({
-  domain: "brewhaus-bourbon-raffle-test.myshopify.com",
-  storefrontAccessToken: "bb5a0f9a3f9a953c5bb98914b66fdc4a",
+  domain: "brewhaus-dog-bones.myshopify.com",
+  storefrontAccessToken: "faf16306f4b8ed42c5c15fe00eb7fbed",
 });
 
 const formatter = new Intl.NumberFormat("en-US", {
