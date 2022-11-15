@@ -4,11 +4,13 @@ import Image from "next/image";
 import logo from "../images/logo.png";
 import Client, { Product } from "shopify-buy";
 import React, { useEffect, useState } from "react";
-import { Carousel } from "../components/carousel";
+import { CarouselBourbon } from "../components/carousel-bourbon";
 import { InputNumber, Button, Divider, Layout, Typography, Modal } from "antd";
 import { Content, Footer, Header } from "antd/lib/layout/layout";
 import { useMediaQuery } from "react-responsive";
 import Loading from "../components/loader";
+import allBourbon from "../images/bourbon-all.jpg";
+import Link from "next/link";
 
 const client = Client.buildClient({
   domain: "brewhaus-dog-bones.myshopify.com",
@@ -115,7 +117,49 @@ const Home: NextPage = () => {
                 maxWidth: 960,
               }}
             >
-              <Carousel />
+              <Typography.Title
+                style={{ textAlign: "center", marginTop: 20 }}
+                level={1}
+              >
+                WE NEED YOUR HELP THIS HOLIDAY SEASON!
+              </Typography.Title>
+              <Typography.Title
+                style={{ textAlign: "center", marginTop: 20 }}
+                level={2}
+              >
+                BREWHAUS BAKERY & DOG BONES PREMIUM BOURBON RAFFLE FUNDRAISER
+              </Typography.Title>
+              <Typography.Paragraph
+                style={{ paddingLeft: 10, paddingRight: 10 }}
+              >
+                ALL proceeds benefit our non-profit bakery organization
+                providing training & employment for individuals with a
+                disability that promotes independence and builds confidence!{" "}
+              </Typography.Paragraph>
+              <Image src={allBourbon} alt="All bourbons for raffle" />
+              <Divider />
+              <Typography.Paragraph
+                style={{ paddingLeft: 10, paddingRight: 10 }}
+              >
+                Your ticket purchase this holiday season helps to maintain our
+                commercial bake space, provide employment and training
+                opportunities for individuals with a disability, alongside our
+                wonderful support staff. We foster a creative, inclusive
+                environment with opportunities for additional skill development
+                and job growth.{" "}
+                <a href="http://brewhausdogbones.com/brew-crew/" target="blank">
+                  Click Here
+                </a>{" "}
+                to view some testimonials from our bakers!
+              </Typography.Paragraph>
+              <Typography.Title
+                style={{ textAlign: "center", marginTop: 20 }}
+                level={2}
+              >
+                Help us be a catalyst for both personal & community impact and
+                change!
+              </Typography.Title>
+              <CarouselBourbon />
               <div
                 style={{
                   display: "flex",
@@ -153,30 +197,45 @@ const Home: NextPage = () => {
                 </Button>
               </div>
               <Divider />
-              <Typography.Paragraph
-                style={{ paddingLeft: 10, paddingRight: 10 }}
+              <Typography.Title
+                style={{ textAlign: "center", marginTop: 20 }}
+                level={2}
               >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </Typography.Paragraph>
-              <Divider />
-              <Typography.Paragraph
-                style={{ paddingLeft: 10, paddingRight: 10 }}
+                Support our mission with a raffle ticket purchase and take a
+                chance to win a rare bourbon!
+              </Typography.Title>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                }}
               >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </Typography.Paragraph>
+                <Typography.Title
+                  level={4}
+                  style={{ marginTop: 0, marginBottom: 20 }}
+                >
+                  $100/ticket
+                </Typography.Title>
+                <Typography.Title
+                  level={4}
+                  style={{ marginTop: 0, marginBottom: 20 }}
+                >
+                  $500/6 tickets
+                </Typography.Title>
+              </div>
             </div>
+
+            <Typography.Title level={4} style={{ textAlign: "center" }}>
+              A Baker’s Dozen 13 tickets $1,000
+            </Typography.Title>
+            <Typography.Title level={5} style={{ textAlign: "center" }}>
+              Maximum of 300 tickets sold
+            </Typography.Title>
+            <Typography.Title level={2} style={{ textAlign: "center" }}>
+              Holiday Reception & Raffle Drawing Sunday, December 18th at 2 pm
+            </Typography.Title>
             <Modal
               title="Are you 21 years old?"
               open={!is21}
@@ -417,7 +476,20 @@ const Home: NextPage = () => {
           }}
         >
           <Divider />
-          Brewhaus Dog Bones 2022
+          Brewhaus Bakery & Dog Bones 1623 Burney Lane Cincinnati OH 45230
+          <br />
+          Non-profit 501(c)3 Charity Serving Individuals With A Disability; EIN
+          47-1534402
+          <br /> Brewhaus Bakery is dedicated to providing a platform for
+          personal development, empowerment, and community engagement that
+          demonstrates everyone has value and can make a unique contribution for
+          community success and active citizenship
+          <br />
+          <br />
+          Please contact Brewhaus Bakery & Dog Bones for additional information,
+          questions and/or concerns!
+          <br />
+          lisa@brewhausdogbones.com 513.520.0310 brewhausdogbones.com
         </Footer>
       </div>
     </Layout>
