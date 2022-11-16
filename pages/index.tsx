@@ -199,7 +199,8 @@ const Home: NextPage = () => {
                     }}
                   >
                     <div style={{ marginBottom: 10 }}>
-                      <b style={{ color: "#e05353" }}>{product.description}</b>{" "}
+                      <b style={{ color: "#e05353" }}>{product.description}</b>
+                      <br />
                       {getPrice(product.variants[0].price)}
                     </div>
                     <div style={{ flexDirection: "row" }}>
