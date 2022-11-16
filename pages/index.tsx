@@ -13,6 +13,7 @@ import Loading from "../components/loader";
 import allBourbon from "../images/bourbon-all.jpg";
 import { CarouselCrew } from "../components/carousel-crew";
 import Lot from "../components/lot";
+import Link from "next/link";
 
 const client = Client.buildClient({
   domain: "brewhaus-dog-bones.myshopify.com",
@@ -291,7 +292,10 @@ const Home: NextPage = () => {
               />
               <Image src={allBourbon} alt="All bourbons for raffle" />
             </div>
-            <Typography.Title level={5} style={{ textAlign: "center" }}>
+            <Typography.Title
+              level={5}
+              style={{ textAlign: "center", marginTop: 20 }}
+            >
               Maximum of 300 tickets sold
             </Typography.Title>
             <Typography.Title
@@ -540,21 +544,24 @@ const Home: NextPage = () => {
             textAlign: "center",
           }}
         >
-          <Divider />
-          Brewhaus Bakery & Dog Bones 1623 Burney Lane Cincinnati OH 45230
+          <b>
+            Brewhaus Bakery & Dog Bones 1623 Burney Lane Cincinnati OH 45230
+          </b>
           <br />
           Non-profit 501(c)3 Charity Serving Individuals With A Disability; EIN
           47-1534402
-          <br /> Brewhaus Bakery is dedicated to providing a platform for
-          personal development, empowerment, and community engagement that
-          demonstrates everyone has value and can make a unique contribution for
-          community success and active citizenship
           <br />
           <br />
           Please contact Brewhaus Bakery & Dog Bones for additional information,
           questions and/or concerns!
           <br />
-          lisa@brewhausdogbones.com 513.520.0310 brewhausdogbones.com
+          <Link href="mailto:lisa@brewhausdogbones.com">
+            lisa@brewhausdogbones.com
+          </Link>{" "}
+          513.520.0310{" "}
+          <Link href="http://www.brewhausdogbones.com">
+            brewhausdogbones.com
+          </Link>
         </Footer>
       </div>
     </Layout>
