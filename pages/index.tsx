@@ -28,7 +28,6 @@ const formatter = new Intl.NumberFormat("en-US", {
 const getPrice = (price: any) => formatter.format(price.amount);
 
 const Home: NextPage = () => {
-  const [purchaseCount, setPurchaseCount] = useState<number>(0);
   const [checkoutId, setCheckoutId] = useState<string>("");
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   const [is21, setIs21] = useState<boolean>(false);
@@ -54,7 +53,10 @@ const Home: NextPage = () => {
   }, []);
 
   const handleBuyNow = async () => {
-    await client.checkout.addLineItems(checkoutId, cart);
+    await client.checkout.addLineItems(
+      checkoutId,
+      cart.filter((item) => item.quantity > 0)
+    );
     const checkout = await client.checkout.fetch(checkoutId);
     window.location.href = checkout.webUrl;
   };
