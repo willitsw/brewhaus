@@ -166,6 +166,8 @@ const Home: NextPage = () => {
               <Typography.Title
                 style={{
                   textAlign: "center",
+                  paddingLeft: 10,
+                  paddingRight: 10,
                   marginTop: 20,
                   color: "#e05353",
                   marginBottom: 20,
@@ -190,7 +192,7 @@ const Home: NextPage = () => {
                   <div
                     key={idx}
                     style={{
-                      width: 300,
+                      width: 320,
                       marginTop: 20,
                       marginBottom: 20,
                       textAlign: "center",
