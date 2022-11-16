@@ -182,10 +182,19 @@ const Home: NextPage = () => {
                   justifyContent: "space-around",
                   alignItems: "center",
                   marginTop: 20,
+                  flexWrap: "wrap",
                 }}
               >
                 {products.map((product, idx) => (
-                  <div key={idx}>
+                  <div
+                    key={idx}
+                    style={{
+                      width: 300,
+                      marginTop: 20,
+                      marginBottom: 20,
+                      textAlign: "center",
+                    }}
+                  >
                     <div style={{ marginBottom: 10 }}>
                       <b style={{ color: "#e05353" }}>{product.description}</b>{" "}
                       {getPrice(product.variants[0].price)}
@@ -211,6 +220,7 @@ const Home: NextPage = () => {
                 <Button
                   type="primary"
                   size="large"
+                  style={{ marginTop: 20 }}
                   onClick={() => setShowAgreementModal(true)}
                   disabled={cart.find((c) => c.quantity > 0) === undefined}
                 >

@@ -3,17 +3,15 @@ import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 
-import crew1 from "../images/crew1.jpg";
-import crew2 from "../images/crew2.jpg";
-import crew3 from "../images/crew3.jpg";
-import crew4 from "../images/crew4.jpg";
-import crew5 from "../images/crew5.jpg";
-import crew6 from "../images/crew6.jpg";
+import crew1 from "../images/crew1.png";
+import crew2 from "../images/crew2.png";
+import crew3 from "../images/crew3.png";
+import crew4 from "../images/crew4.png";
+import crew5 from "../images/crew5.png";
+import crew6 from "../images/crew6.png";
 
 export const CarouselCrew = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 0.2 }, [
-    Autoplay(),
-  ]);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay()]);
 
   useEffect(() => {
     if (emblaApi) {
