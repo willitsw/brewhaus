@@ -1,8 +1,9 @@
-import type { NextPage } from 'next'
+/* eslint-disable react/no-unescaped-entities */
+import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import logo from "../images/logo.png";
-import Client, { Product } from "shopify-buy";
+import Client, { LineItemToAdd } from "shopify-buy";
 import React, { useEffect, useState } from "react";
 import { CarouselBourbon } from "../components/carousel-bourbon";
 import { InputNumber, Button, Divider, Layout, Typography, Modal } from "antd";
@@ -10,7 +11,8 @@ import { Content, Footer, Header } from "antd/lib/layout/layout";
 import { useMediaQuery } from "react-responsive";
 import Loading from "../components/loader";
 import allBourbon from "../images/bourbon-all.jpg";
-import Link from "next/link";
+import { CarouselCrew } from "../components/carousel-crew";
+import Lot from "../components/lot";
 
 const client = Client.buildClient({
   domain: "brewhaus-dog-bones.myshopify.com",
@@ -22,22 +24,27 @@ const formatter = new Intl.NumberFormat("en-US", {
   currency: "USD",
 });
 
-const getPrice = (product: any) =>
-  formatter.format(product.variants[0].price.amount);
+const getPrice = (price: any) => formatter.format(price.amount);
 
 const Home: NextPage = () => {
-  const [raffleTicket, setRaffleTicket] = useState<Product>();
   const [purchaseCount, setPurchaseCount] = useState<number>(0);
-  const [checkoutId, setCheckoutId] = useState<string>();
+  const [checkoutId, setCheckoutId] = useState<string>("");
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   const [is21, setIs21] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [showAgreementModal, setShowAgreementModal] = useState<boolean>(false);
+  const [cart, setCart] = useState<LineItemToAdd[]>([]);
+  const [products, setProducts] = useState<Client.Product[]>([]);
 
   useEffect(() => {
     const getProducts = async () => {
       const newProducts = await client.product.fetchAll();
-      setRaffleTicket(newProducts[0]);
+      setProducts(newProducts);
+      const checkoutItems: LineItemToAdd[] = newProducts.map((product) => ({
+        variantId: product.variants[0].id,
+        quantity: 0,
+      }));
+      setCart(checkoutItems);
       const newCheckout = await client.checkout.create();
       setCheckoutId(newCheckout.id.toString());
       setIsLoading(false);
@@ -46,14 +53,8 @@ const Home: NextPage = () => {
   }, []);
 
   const handleBuyNow = async () => {
-    const newItem = [
-      {
-        variantId: raffleTicket?.variants[0].id ?? "",
-        quantity: purchaseCount,
-      },
-    ];
-    await client.checkout.addLineItems(checkoutId ?? "", newItem);
-    const checkout = await client.checkout.fetch(checkoutId ?? "");
+    await client.checkout.addLineItems(checkoutId, cart);
+    const checkout = await client.checkout.fetch(checkoutId);
     window.location.href = checkout.webUrl;
   };
 
@@ -124,22 +125,31 @@ const Home: NextPage = () => {
                 WE NEED YOUR HELP THIS HOLIDAY SEASON!
               </Typography.Title>
               <Typography.Title
-                style={{ textAlign: "center", marginTop: 20 }}
-                level={2}
+                style={{ textAlign: "center", marginTop: 20, color: "#e05353" }}
+                level={3}
               >
-                BREWHAUS BAKERY & DOG BONES PREMIUM BOURBON RAFFLE FUNDRAISER
+                Brewhaus Bakery & Dog Bones Premium Bourbon Raffle Fundraiser
               </Typography.Title>
               <Typography.Paragraph
-                style={{ paddingLeft: 10, paddingRight: 10 }}
+                style={{
+                  paddingLeft: 10,
+                  paddingRight: 10,
+                  textAlign: "center",
+                  fontWeight: "bold",
+                }}
               >
                 ALL proceeds benefit our non-profit bakery organization
                 providing training & employment for individuals with a
                 disability that promotes independence and builds confidence!{" "}
               </Typography.Paragraph>
-              <Image src={allBourbon} alt="All bourbons for raffle" />
-              <Divider />
+              <CarouselCrew />
               <Typography.Paragraph
-                style={{ paddingLeft: 10, paddingRight: 10 }}
+                style={{
+                  paddingLeft: 10,
+                  paddingRight: 10,
+                  textAlign: "center",
+                  paddingTop: 20,
+                }}
               >
                 Your ticket purchase this holiday season helps to maintain our
                 commercial bake space, provide employment and training
@@ -153,8 +163,13 @@ const Home: NextPage = () => {
                 to view some testimonials from our bakers!
               </Typography.Paragraph>
               <Typography.Title
-                style={{ textAlign: "center", marginTop: 20 }}
-                level={2}
+                style={{
+                  textAlign: "center",
+                  marginTop: 20,
+                  color: "#e05353",
+                  marginBottom: 20,
+                }}
+                level={3}
               >
                 Help us be a catalyst for both personal & community impact and
                 change!
@@ -169,10 +184,11 @@ const Home: NextPage = () => {
                   marginTop: 20,
                 }}
               >
-                {raffleTicket && (
-                  <div>
+                {products.map((product, idx) => (
+                  <div key={idx}>
                     <div style={{ marginBottom: 10 }}>
-                      <b>Price per ticket:</b> {getPrice(raffleTicket)}
+                      <b style={{ color: "#e05353" }}>{product.description}</b>{" "}
+                      {getPrice(product.variants[0].price)}
                     </div>
                     <div style={{ flexDirection: "row" }}>
                       <b>Quantity:</b>
@@ -180,61 +196,100 @@ const Home: NextPage = () => {
                         style={{ marginLeft: 10 }}
                         min={0}
                         onChange={(count) => {
-                          setPurchaseCount(count as number);
+                          const cartCopy = [...cart];
+                          const indexToUpdate = cartCopy.findIndex(
+                            (c) => c.variantId === product.variants[0].id
+                          );
+                          cartCopy[indexToUpdate].quantity = count ?? 0;
+                          setCart(cartCopy);
                         }}
-                        value={purchaseCount}
+                        value={cart[idx].quantity}
                       />
                     </div>
                   </div>
-                )}
+                ))}
                 <Button
                   type="primary"
                   size="large"
                   onClick={() => setShowAgreementModal(true)}
-                  disabled={purchaseCount < 1}
+                  disabled={cart.find((c) => c.quantity > 0) === undefined}
                 >
                   Buy Now
                 </Button>
               </div>
+              <Typography.Title
+                level={2}
+                style={{ textAlign: "center", marginTop: 20 }}
+              >
+                Holiday Reception & Raffle Drawing Sunday, December 18th at 2 pm
+              </Typography.Title>
               <Divider />
               <Typography.Title
-                style={{ textAlign: "center", marginTop: 20 }}
                 level={2}
+                style={{ textAlign: "center", color: "#e05353" }}
               >
-                Support our mission with a raffle ticket purchase and take a
-                chance to win a rare bourbon!
+                Bourbon Lot Descriptions
               </Typography.Title>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-around",
-                  alignItems: "center",
-                }}
-              >
-                <Typography.Title
-                  level={4}
-                  style={{ marginTop: 0, marginBottom: 20 }}
-                >
-                  $100/ticket
-                </Typography.Title>
-                <Typography.Title
-                  level={4}
-                  style={{ marginTop: 0, marginBottom: 20 }}
-                >
-                  $500/6 tickets
-                </Typography.Title>
-              </div>
+              <Lot
+                number={1}
+                heading="Buy your ticket, and hope it’s pulled for a Pappy Van
+                    Winkle’s 10 year Bourbon! Old Rip Van Winkle 10 Year
+                    Kentucky Straight Bourbon Whiskey:"
+                text='Old Rip Van Winkle Handmade Bourbon. This fine whiskey has as
+                    pleasant a taste as any whiskey around. The 10 full years of
+                    aging combine nicely with its 45% apy (90 proof). A sweet
+                    vanilla nose with caramel, pecan and oak wood. Smooth, mellow
+                    flavor consisting of robust wheat, cherries and oak. Features
+                    a long, smoky wheat finish with hints of fruit, spice and oak
+                    tannins. This bourbon has a "rich, plush texture." If you know
+                    bourbon, you know a Pappy needs to be on your shelf!'
+              />
+              <Lot
+                number={2}
+                heading="Pappy Van Winkle's 12 Year Lot B
+                Van Winkle Special Reserve 12 Year Kentucky Straight Bourbon Whiskey"
+                text="Van Winkle Special Reserve is the perfect combination of age and proof in a bourbon. This sweet, full-bodied whiskey has been described by some as “nectar.” The 12 years of aging and medium proof seem to be just right in creating a very pleasant drink of American whiskey. Enjoy notes of caramel, nuts, and brown spices with a lengthy, enveloping finish. It’s an outrageously smooth and decadent bourbon that might be your next party bottle!"
+              />
+              <Lot
+                number={3}
+                heading="A Trifecta of Perfection in an EH Taylor Triple Treat: 3 bottles; 750 ml each bottle"
+                text="Colonel Edmund Haynes Taylor, Jr was a visionary in the whiskey world with a mind for distilling that was years ahead of its time. He founded a world class Distillery, made advancements to the industry, and fought for the purity and legitimacy of bourbon, gaining him the title of the “Father of the Modern Bourbon Industry.” This lot has the best of everything! Colonel E.H. Taylor Small Batch, Colonel E.H. Taylor Barrel Proof (uncut & unfiltered), and Colonel E.H. Taylor Single Barrel.
+                "
+              />
+              <Lot
+                number={4}
+                heading="A Double Dip of Eagle Rare!"
+                text="Colonel Edmund Haynes Taylor, Jr was a visionary in the whiskey world with a mind for distilling that was years ahead of its time. He founded a world class Distillery, made advancements to the industry, and fought for the purity and legitimacy of bourbon, gaining him the title of the “Father of the Modern Bourbon Industry.” This lot has the best of everything! Colonel E.H. Taylor Small Batch
+                Colonel E.H. Taylor Barrel Proof (uncut & unfiltered)
+                Colonel E.H. Taylor Single Barrel
+                "
+              />
+              <Lot
+                number={5}
+                heading="A Weller Lucky 4 Pack: Hope you win this special lot! Weller Special Reserve, Weller 12 Year, Weller Full Proof, Weller Antique 107"
+                text="The ultimate collection of fine American bourbons - from the W.L. Weller part of the award-winning Buffalo Trace Distillery- makes a perfect addition for the bourbon connoisseur. Each of these wheated bourbons offers distinct characteristics for the most distinguishing palate. Split a ticket with friends and have a special tasting when you win!"
+              />
+              <Lot
+                number={6}
+                heading="Woodford Reserve Bourbon Duo The Woodford Unicorn! A Double Double Oaked Kentucky Straight Bourbon Whiskey, 375 ml + Master’s Collection Woodford Reserve Five Malt Stouted Mash Kentucky Malt Whiskey;"
+                text="“Double Double Oaked has such a cult following, which makes it very difficult for consumers to get their hands on it,” said Master Distiller Chris Morris. This bourbon is the result of finishing fully matured Woodford Reserve Double Oaked for an additional year in a second, heavily toasted, lightly charred, new oak barrel.The extra year in the barrel creates a bourbon that is said to be distinctly spicier than its original counterpart, which is known for its sweeter taste and finish. Double Double Oaked is 90.4 proof. Limited Series No. 17; 750 ml; 90.4 proof; 45.2% abv. This unique release is made from a mix of five malts that is then triple-distilled. A bourbon aroma of  toasted multigrain bread with subtle notes of caramel and chocolate. Rich flavor while still feeling light. Flavors of biscuit, toffee, and barley are present and complemented by a slight bitter citrus quality. Imagine candied malted barley! Extremely hard to find!"
+              />
+              <Lot
+                number={7}
+                heading="Blanton’s Twosome: The Original Single Barrel Bourbon Whiskey;"
+                text="Bottle 1: Dumped on 11-12-20 From Barrel No. 669; Warehouse H on Rick No. 1; 750 ml Bottle 2: Dumped on 11-20-20 From Barrel No. 824; Warehouse H on Rick No. 2; 375 ml Blanton's Original Single Barrel Bourbon Whiskey is still aged in the same section of Warehouse H as Blanton's Private Reserve was over 50 years ago. Made from the high-rye Buffalo Trace mash bill of corn, rye, and malted barley making it one of the most highly sought-after American bourbons with a deep, satisfying nose of nutmeg and spices. Additionally, powerful dry vanilla notes in harmony with hints of honey amid strong caramel and corn make this a top shelf bourbon! Bottled at 46.5% abv."
+              />
+              <Image src={allBourbon} alt="All bourbons for raffle" />
             </div>
-
-            <Typography.Title level={4} style={{ textAlign: "center" }}>
-              A Baker’s Dozen 13 tickets $1,000
-            </Typography.Title>
             <Typography.Title level={5} style={{ textAlign: "center" }}>
               Maximum of 300 tickets sold
             </Typography.Title>
-            <Typography.Title level={2} style={{ textAlign: "center" }}>
-              Holiday Reception & Raffle Drawing Sunday, December 18th at 2 pm
+            <Typography.Title
+              style={{ textAlign: "center", marginTop: 20, color: "#e05353" }}
+              level={2}
+            >
+              Support our mission with a raffle ticket purchase and take a
+              chance to win a rare bourbon!
             </Typography.Title>
             <Modal
               title="Are you 21 years old?"
@@ -496,4 +551,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home
+export default Home;
