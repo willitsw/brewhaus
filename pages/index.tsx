@@ -547,11 +547,14 @@ const Home: NextPage = () => {
           }}
         >
           <b>
-            Brewhaus Bakery & Dog Bones 1623 Burney Lane Cincinnati OH 45230
+            Brewhaus Bakery & Dog Bones
+            <br />
+            1623 Burney Lane Cincinnati OH 45230
           </b>
           <br />
-          Non-profit 501(c)3 Charity Serving Individuals With A Disability; EIN
-          47-1534402
+          Non-profit 501(c)3 Charity
+          <br />
+          Serving Individuals With A Disability; EIN 47-1534402
           <br />
           <br />
           Please contact Brewhaus Bakery & Dog Bones for additional information,
