@@ -273,9 +273,8 @@ const Home: NextPage = () => {
               <Lot
                 number={4}
                 heading="A Double Dip of Eagle Rare!"
-                text="Colonel Edmund Haynes Taylor, Jr was a visionary in the whiskey world with a mind for distilling that was years ahead of its time. He founded a world class Distillery, made advancements to the industry, and fought for the purity and legitimacy of bourbon, gaining him the title of the “Father of the Modern Bourbon Industry.” This lot has the best of everything! Colonel E.H. Taylor Small Batch
-                Colonel E.H. Taylor Barrel Proof (uncut & unfiltered)
-                Colonel E.H. Taylor Single Barrel
+                text="Eagle Rare Kentucky Straight Bourbon Whiskey is carefully aged for no less than ten years making it a smooth and tasty whiskey. The rareness of this great breed of bourbon is evident in its complex aroma, as well as the smooth and lingering taste. Eagle Rare is a bourbon that lives up to its name with its lofty, distinctive taste experience.
+                Eagle Rare Bourbon has a nose of complex aromas of toffee, hints of orange peel, herbs, honey, leather and oak  with notes of candied almonds and very rich cocoa. The finish is dry and lingering making Eagle Rare bourbon a whiskey you won’t forget! One for you and one for a friend!
                 "
               />
               <Lot
