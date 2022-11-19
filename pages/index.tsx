@@ -160,8 +160,8 @@ const Home: NextPage = () => {
                 wonderful support staff. We foster a creative, inclusive
                 environment with opportunities for additional skill development
                 and job growth.{" "}
-                <a href="http://brewhausdogbones.com/brew-crew/" target="blank">
-                  Click Here
+                <a href="testimonials.pdf" download>
+                  Click here
                 </a>{" "}
                 to view some testimonials from our bakers!
               </Typography.Paragraph>
