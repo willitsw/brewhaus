@@ -180,58 +180,11 @@ const Home: NextPage = () => {
                 change!
               </Typography.Title>
               <CarouselBourbon />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-around",
-                  alignItems: "center",
-                  marginTop: 20,
-                  flexWrap: "wrap",
-                }}
-              >
-                {products.map((product, idx) => (
-                  <div
-                    key={idx}
-                    style={{
-                      width: 320,
-                      marginTop: 20,
-                      marginBottom: 20,
-                      textAlign: "center",
-                    }}
-                  >
-                    <div style={{ marginBottom: 10 }}>
-                      <b style={{ color: "#e05353" }}>{product.description}</b>
-                      <br />
-                      {getPrice(product.variants[0].price)}
-                    </div>
-                    <div style={{ flexDirection: "row" }}>
-                      <b>Quantity:</b>
-                      <InputNumber
-                        style={{ marginLeft: 10 }}
-                        min={0}
-                        onChange={(count) => {
-                          const cartCopy = [...cart];
-                          const indexToUpdate = cartCopy.findIndex(
-                            (c) => c.variantId === product.variants[0].id
-                          );
-                          cartCopy[indexToUpdate].quantity = count ?? 0;
-                          setCart(cartCopy);
-                        }}
-                        value={cart[idx].quantity}
-                      />
-                    </div>
-                  </div>
-                ))}
-                <Button
-                  type="primary"
-                  size="large"
-                  style={{ marginTop: 20 }}
-                  onClick={() => setShowAgreementModal(true)}
-                  disabled={cart.find((c) => c.quantity > 0) === undefined}
-                >
-                  Buy Now
-                </Button>
+              <div style={{ textAlign: "center", marginTop: 20 }}>
+                <Typography.Title level={3}>
+                  We are experiencing problems with the purchase process, please
+                  check back tomorrow to purchase tickets.
+                </Typography.Title>
               </div>
               <Typography.Title
                 level={2}
