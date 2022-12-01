@@ -14,7 +14,11 @@ import allBourbon from "../images/bourbon-all.jpg";
 import { CarouselCrew } from "../components/carousel-crew";
 import Lot from "../components/lot";
 import Link from "next/link";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import {
+  PayPalScriptProvider,
+  PayPalButtons,
+  FUNDING,
+} from "@paypal/react-paypal-js";
 
 const client = Client.buildClient({
   domain: "brewhaus-dog-bones.myshopify.com",
@@ -204,10 +208,17 @@ const Home: NextPage = () => {
                         purchase_units: [
                           {
                             amount: {
-                              value: "100.00",
+                              value: "1.02",
                             },
                           },
                         ],
+                      });
+                    }}
+                    fundingSource={FUNDING.PAYPAL}
+                    onApprove={(data, actions) => {
+                      return actions.order.capture().then((details) => {
+                        const name = details.payer.name.given_name;
+                        alert(`1 entry purchased by ${name}`);
                       });
                     }}
                   />
@@ -230,6 +241,13 @@ const Home: NextPage = () => {
                         ],
                       });
                     }}
+                    fundingSource={FUNDING.PAYPAL}
+                    onApprove={(data, actions) => {
+                      return actions.order.capture().then((details) => {
+                        const name = details.payer.name.given_name;
+                        alert(`6 entries purchased by ${name}`);
+                      });
+                    }}
                   />
                 </div>
                 <Divider />
@@ -250,7 +268,39 @@ const Home: NextPage = () => {
                         ],
                       });
                     }}
+                    fundingSource={FUNDING.PAYPAL}
+                    onApprove={(data, actions) => {
+                      return actions.order.capture().then((details) => {
+                        const name = details.payer.name.given_name;
+                        alert(`13 entries purchased by ${name}`);
+                      });
+                    }}
                   />
+                </div>
+                <div style={{ marginTop: 20, textAlign: "center" }}>
+                  <Typography.Title level={3}>
+                    Option 4: Order directly from us! We accept cash, credit, or
+                    check.
+                  </Typography.Title>
+                  <Typography.Title level={5}>
+                    <strong>By Phone: </strong>513.520.0310
+                  </Typography.Title>
+                  <Typography.Title level={5}>
+                    <strong>By Email: </strong>
+                    <Link href="mailto:lisa@brewhausdogbones.com">
+                      lisa@brewhausdogbones.com
+                    </Link>
+                  </Typography.Title>
+                  <Typography.Title level={5}>
+                    <strong>In Person: </strong>The{" "}
+                    <Link
+                      href="https://goo.gl/maps/hgEN8FudJy3H7A847"
+                      target="_blank"
+                    >
+                      Brewhaus Bakery
+                    </Link>{" "}
+                    is open Monday, Wednesday, and Friday from 9am-3pm.
+                  </Typography.Title>
                 </div>
                 <Typography.Title
                   level={2}
