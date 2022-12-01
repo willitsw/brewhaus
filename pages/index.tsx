@@ -208,7 +208,7 @@ const Home: NextPage = () => {
                         purchase_units: [
                           {
                             amount: {
-                              value: "1.02",
+                              value: "100.00",
                             },
                           },
                         ],
