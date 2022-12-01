@@ -215,12 +215,6 @@ const Home: NextPage = () => {
                       });
                     }}
                     fundingSource={FUNDING.PAYPAL}
-                    onApprove={(data, actions) => {
-                      return actions.order.capture().then((details) => {
-                        const name = details.payer.name.given_name;
-                        alert(`1 entry purchased by ${name}`);
-                      });
-                    }}
                   />
                 </div>
                 <Divider />
@@ -242,12 +236,6 @@ const Home: NextPage = () => {
                       });
                     }}
                     fundingSource={FUNDING.PAYPAL}
-                    onApprove={(data, actions) => {
-                      return actions.order.capture().then((details) => {
-                        const name = details.payer.name.given_name;
-                        alert(`6 entries purchased by ${name}`);
-                      });
-                    }}
                   />
                 </div>
                 <Divider />
@@ -269,12 +257,6 @@ const Home: NextPage = () => {
                       });
                     }}
                     fundingSource={FUNDING.PAYPAL}
-                    onApprove={(data, actions) => {
-                      return actions.order.capture().then((details) => {
-                        const name = details.payer.name.given_name;
-                        alert(`13 entries purchased by ${name}`);
-                      });
-                    }}
                   />
                 </div>
                 <div style={{ marginTop: 20, textAlign: "center" }}>
