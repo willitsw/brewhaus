@@ -135,10 +135,10 @@ const Home: NextPage = () => {
                 }}
               >
                 <Typography.Title
-                  style={{ textAlign: "center", marginTop: 20 }}
+                  style={{ textAlign: "center", marginTop: 20, color: "red" }}
                   level={1}
                 >
-                  WE NEED YOUR HELP THIS HOLIDAY SEASON!
+                  SOLD OUT!
                 </Typography.Title>
                 <Typography.Title
                   style={{
@@ -197,7 +197,7 @@ const Home: NextPage = () => {
                   change!
                 </Typography.Title>
                 <CarouselBourbon />
-                <div style={{ marginTop: 20, textAlign: "center" }}>
+                {/* <div style={{ marginTop: 20, textAlign: "center" }}>
                   <Typography.Title level={3}>
                     Option 1: Purchase 1 Entry for $100
                   </Typography.Title>
@@ -258,11 +258,14 @@ const Home: NextPage = () => {
                     }}
                     fundingSource={FUNDING.PAYPAL}
                   />
-                </div>
+                </div> */}
                 <div style={{ marginTop: 20, textAlign: "center" }}>
+                  <Typography.Title level={2}>
+                    THANK YOU to for all the support!
+                  </Typography.Title>
                   <Typography.Title level={3}>
-                    Option 4: Order directly from us! We accept cash, credit, or
-                    check.
+                    Although we are sold out, we will still be happy to accept
+                    donations!
                   </Typography.Title>
                   <Typography.Title level={5}>
                     <strong>By Phone: </strong>513.520.0310
